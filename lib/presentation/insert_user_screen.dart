@@ -11,6 +11,8 @@ class InsertUserScreen extends ConsumerStatefulWidget {
 }
 
 class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
@@ -22,8 +24,6 @@ class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
     TextEditingController suiteController = TextEditingController();
     TextEditingController streetController = TextEditingController();
     TextEditingController compNameController = TextEditingController();
-    TextEditingController bsController = TextEditingController();
-    TextEditingController catchPhraseController = TextEditingController();
 
     List<TextEditingController> textControllerList = [
       nameController,
@@ -35,8 +35,6 @@ class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
       suiteController,
       streetController,
       compNameController,
-      bsController,
-      catchPhraseController
     ];
 
     return Scaffold(
@@ -58,11 +56,23 @@ class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            InsertGridView(textControllerList: textControllerList),
-            OutlinedButton(
-              onPressed: () {},
-              child: const Text('送信'),
+            Form(
+              key: formKey,
+              child: InsertGridView(textControllerList: textControllerList),
             ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: OutlinedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+                  }
+                },
+                child: const Text('送信'),
+              ),
+            )
           ],
         ),
       ),
