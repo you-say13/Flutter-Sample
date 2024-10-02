@@ -62,7 +62,7 @@ class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
-              child: OutlinedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -70,6 +70,10 @@ class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
                     );
                   }
                 },
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                ),
                 child: const Text('送信'),
               ),
             )

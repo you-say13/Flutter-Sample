@@ -34,6 +34,12 @@ class L10nEn extends L10n {
   String get streetError => '有効な住居番号を入力してください。';
 
   @override
+  String get companyNameError => '有効な会社名を入力してください。';
+
+  @override
+  String get defaultRequiredError => '必須項目です。';
+
+  @override
   String get defaultLengthError => '1文字以上、16文字以下で入力してください。';
 
   @override

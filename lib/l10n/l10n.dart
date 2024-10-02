@@ -147,6 +147,18 @@ abstract class L10n {
   /// **'有効な住居番号を入力してください。'**
   String get streetError;
 
+  /// No description provided for @companyNameError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効な会社名を入力してください。'**
+  String get companyNameError;
+
+  /// No description provided for @defaultRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'必須項目です。'**
+  String get defaultRequiredError;
+
   /// No description provided for @defaultLengthError.
   ///
   /// In en, this message translates to:

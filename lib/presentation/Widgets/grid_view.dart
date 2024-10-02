@@ -75,7 +75,6 @@ class InsertGridView extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: textControllerList[i],
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     //下記2行追加
                     isDense: true,
@@ -84,19 +83,10 @@ class InsertGridView extends StatelessWidget {
                     hintText: hintValue[i],
                   ),
                   validator: (value) {
-                    switch (key[i]) {
-                      case "name":
-                      case "username":
-                      case "city":
-                      case "suite":
-                      case "street":
-                      case "companyName":
-                        if (Validator().defaultValidator(value)) return "有効な値を入力してください。";
-                        return null;
-                      case "email":
-                        if (Validator().emailValidator(value)) return "有効な形式で入力してください。";
-                        return null;
-                    }
+                    final str =
+                        InputValidator().errorString(key: key[i], value: value, context: context);
+                    debugPrint('validation result: $str');
+                    return str;
                   },
                 ),
               ],

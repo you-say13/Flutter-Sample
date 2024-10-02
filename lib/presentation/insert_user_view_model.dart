@@ -3,7 +3,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
 import 'package:riverpod_sample/domain/service/user_repository.dart';
 import 'package:riverpod_sample/domain/service/validator.dart';
-import 'package:riverpod_sample/l10n/l10n.dart';
 
 part 'insert_user_view_model.g.dart';
 
@@ -36,35 +35,9 @@ class ErrorUser {
 
 @riverpod
 class InsertUserViewModel extends _$InsertUserViewModel {
-  InsertUserViewModel(this.l10n);
-  final L10n l10n;
-
   @override
   void build() {
     return;
-  }
-
-  ErrorUser checkValidation({
-    required String name,
-    String? username,
-    required String email,
-    required String zipCode,
-    required String city,
-    required String suite,
-    required String street,
-    required String phone,
-    String? website,
-    String? companyName,
-  }) {
-    ErrorUser eu = ErrorUser();
-    if (Validator().defaultValidator(name)) {
-      eu.nameError = l10n.nameError;
-    }
-    if(Validator().defaultValidator(zipCode)){
-      eu.zipCodeError = l10n.zipCodeError;
-    }
-
-    return eu;
   }
 
   void insertUserData({
