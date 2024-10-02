@@ -98,6 +98,78 @@ abstract class L10n {
   /// In en, this message translates to:
   /// **'8842c2517a2e5981494057fc25a3d08d8d6def54'**
   String get appKey;
+
+  /// No description provided for @nameError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効な氏名を入力してください。'**
+  String get nameError;
+
+  /// No description provided for @userNameError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効なニックネームを入力してください。'**
+  String get userNameError;
+
+  /// No description provided for @emailError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効なEメールを入力してください。'**
+  String get emailError;
+
+  /// No description provided for @phoneError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効な電話番号を入力してください。'**
+  String get phoneError;
+
+  /// No description provided for @zipCodeError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効な住所を入力してください。'**
+  String get zipCodeError;
+
+  /// No description provided for @cityError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効な町名を入力してください。'**
+  String get cityError;
+
+  /// No description provided for @suiteError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効な街区符号を入力してください。'**
+  String get suiteError;
+
+  /// No description provided for @streetError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効な住居番号を入力してください。'**
+  String get streetError;
+
+  /// No description provided for @companyNameError.
+  ///
+  /// In en, this message translates to:
+  /// **'有効な会社名を入力してください。'**
+  String get companyNameError;
+
+  /// No description provided for @defaultRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'必須項目です。'**
+  String get defaultRequiredError;
+
+  /// No description provided for @defaultLengthError.
+  ///
+  /// In en, this message translates to:
+  /// **'1文字以上、16文字以下で入力してください。'**
+  String get defaultLengthError;
+
+  /// No description provided for @emailLengthError.
+  ///
+  /// In en, this message translates to:
+  /// **'32文字以下で入力してください。'**
+  String get emailLengthError;
 }
 
 class _L10nDelegate extends LocalizationsDelegate<L10n> {

@@ -45,7 +45,9 @@ class InsertGridView extends StatelessWidget {
   @override
   Widget build(context) {
     Map<String, String> info = {
+      "name": "氏名",
       "username": "ニックネーム",
+      "email": "Eメール",
       "phone": "電話番号",
       "zipCode": "住所",
       "city": "町名",
@@ -59,7 +61,7 @@ class InsertGridView extends StatelessWidget {
 
     return Column(
       children: [
-        for (int i = 0; i < 7; i++) ...{
+        for (int i = 0; i < info.length - 1; i++) ...{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
@@ -81,18 +83,10 @@ class InsertGridView extends StatelessWidget {
                     hintText: hintValue[i],
                   ),
                   validator: (value) {
-                    switch (key[i]) {
-                      case "username":
-                      case "city":
-                      case "suite":
-                      case "street":
-                      case "companyName":
-                        if (!Validator().defaultValidator(value)) "有効な値を入力してください。";
-                        break;
-                      case "email":
-                        if (!Validator().emailValidator(value)) "有効な形式で入力してください。";
-                        break;
-                    }
+                    final str =
+                        InputValidator().errorString(key: key[i], value: value, context: context);
+                    debugPrint('validation result: $str');
+                    return str;
                   },
                 ),
               ],

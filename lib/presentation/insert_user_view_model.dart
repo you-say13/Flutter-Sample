@@ -8,6 +8,31 @@ part 'insert_user_view_model.g.dart';
 
 final CollectionReference users = FirebaseFirestore.instance.collection("Users");
 
+class ErrorUser {
+  ErrorUser(
+      {this.nameError,
+      this.userNameError,
+      this.emailError,
+      this.zipCodeError,
+      this.suiteError,
+      this.streetError,
+      this.cityError,
+      this.phoneError,
+      this.webSiteError,
+      this.companyNameError});
+
+  late final String? nameError;
+  late final String? userNameError;
+  late final String? emailError;
+  late final String? zipCodeError;
+  late final String? suiteError;
+  late final String? streetError;
+  late final String? cityError;
+  late final String? phoneError;
+  late final String? webSiteError;
+  late final String? companyNameError;
+}
+
 @riverpod
 class InsertUserViewModel extends _$InsertUserViewModel {
   @override

@@ -7,7 +7,7 @@ part of 'insert_user_view_model.dart';
 // **************************************************************************
 
 String _$insertUserViewModelHash() =>
-    r'a27be2dba534fee6f7812b11396ac67942340428';
+    r'87686c0a137f3f090723e3c07e109880b1df8185';
 
 /// See also [InsertUserViewModel].
 @ProviderFor(InsertUserViewModel)
