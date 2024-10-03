@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
 import 'package:riverpod_sample/domain/service/user_repository.dart';
-import 'package:riverpod_sample/domain/service/validator.dart';
 
 part 'insert_user_view_model.g.dart';
 
@@ -60,10 +60,7 @@ class InsertUserViewModel extends _$InsertUserViewModel {
       return;
     }
 
-    // validation check
-    if (Validator().defaultValidator(name)) return;
-    if (Validator().emailValidator(email)) return;
-    if (Validator().defaultValidator(phone)) return;
+    debugPrint("insert!");
 
     // insert fireStore
     await users.doc().set(
@@ -72,7 +69,7 @@ class InsertUserViewModel extends _$InsertUserViewModel {
         "email": email,
         "phone": phone,
         "username": username ?? "",
-        "company": companyName ?? "",
+        "companyName": companyName ?? "",
         "address": {
           "city": address?.city ?? "",
           "street": address?.street ?? "",
