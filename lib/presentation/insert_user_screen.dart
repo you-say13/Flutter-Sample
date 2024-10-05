@@ -39,6 +39,18 @@ class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
       compNameController,
     ];
 
+    void clearTextField() {
+      nameController.text = "";
+      userNameController.text = "";
+      emailController.text = "";
+      phoneController.text = "";
+      zipCodeController.text = "";
+      cityController.text = "";
+      suiteController.text = "";
+      streetController.text = "";
+      compNameController.text = "";
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 5,
@@ -80,9 +92,8 @@ class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
                           ),
                           companyName: compNameController.text,
                         );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
+                    clearTextField();
+                    context.go("/");
                   }
                 },
                 style: OutlinedButton.styleFrom(
