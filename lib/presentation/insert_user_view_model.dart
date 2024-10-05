@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
+import 'package:riverpod_sample/domain/repository/CRUDController.dart';
 import 'package:riverpod_sample/domain/service/user_repository.dart';
 
 part 'insert_user_view_model.g.dart';
@@ -62,8 +63,8 @@ class InsertUserViewModel extends _$InsertUserViewModel {
 
     debugPrint("insert!");
 
-    // insert fireStore
-    await users.doc().set(
+    // set user Type
+    final user = User.fromJson(
       {
         "name": name,
         "email": email,
@@ -75,9 +76,12 @@ class InsertUserViewModel extends _$InsertUserViewModel {
           "street": address?.street ?? "",
           "suite": address?.suite ?? "",
           "zipcode": address?.zipcode ?? "",
-        }
+        },
       },
     );
+
+    // insert fireStore
+    CRUDController().insert(user);
 
     // reload homeView(userRepository data's)
     ref.invalidate(userRepositoryProvider);

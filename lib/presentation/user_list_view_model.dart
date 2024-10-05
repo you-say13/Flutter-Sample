@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
+import 'package:riverpod_sample/domain/repository/CRUDController.dart';
 import 'package:riverpod_sample/domain/service/user_repository.dart';
 
 part 'user_list_view_model.g.dart';
@@ -64,5 +65,11 @@ class UserListViewModel extends _$UserListViewModel {
       },
     ).toList();
     state = [...?userList];
+  }
+
+  void delete(String id) {
+    if (id == null) return;
+    CRUDController().delete(id);
+    ref.invalidateSelf();
   }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_sample/domain/repository/CRUDController.dart';
+import 'package:riverpod_sample/domain/service/user_repository.dart';
+import 'package:riverpod_sample/presentation/Widgets/alert_dialog.dart';
 import 'package:riverpod_sample/presentation/Widgets/grid_view.dart';
 import 'package:riverpod_sample/presentation/user_list_view_model.dart';
 
@@ -32,30 +35,44 @@ class UserHomeScreenState extends ConsumerState<UserHomeScreen> {
           final userInfo = user.user;
           return [
             ListTile(
+              dense: true,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12),
               title: Text(userInfo.name),
               subtitle: Text(userInfo.email),
               trailing: IconButton(
-                onPressed: () {
-                  _isShowDescription(userInfo.id!);
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+                onPressed: () async {
+                  AlertDialogComp()
+                      .alertDialog(
+                    title: "ユーザー情報を削除します",
+                    message: "この操作は取り消すことができません。本当にこのデータを削除しますか？",
+                    context: context,
+                  )
+                      .then(
+                    (value) async {
+                      if (value != null && value) {
+                        CRUDController().delete(userInfo.id!);
+                        ref.invalidate(userRepositoryProvider);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("success delete user"),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("failed delete user"),
+                          ),
+                        );
+                      }
+                    },
+                  );
                 },
-                icon: const Icon(Icons.arrow_drop_down),
+                icon: const Icon(Icons.delete_rounded),
               ),
               onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text(userInfo.name),
-                    content: Text('Email: ${userInfo.email}'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Close'),
-                      ),
-                    ],
-                  ),
-                );
+                _isShowDescription(userInfo.id!);
               },
             ),
             user.viewState
