@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_sample/domain/model/user.dart';
 import 'package:riverpod_sample/presentation/Widgets/grid_view.dart';
+import 'package:riverpod_sample/presentation/insert_user_view_model.dart';
 
 class InsertUserScreen extends ConsumerStatefulWidget {
   const InsertUserScreen({super.key});
@@ -65,6 +67,19 @@ class InsertUserScreenState extends ConsumerState<ConsumerStatefulWidget> {
               child: ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
+                    ref.read(insertUserViewModelProvider.notifier).insertUserData(
+                          name: nameController.text,
+                          username: userNameController.text,
+                          email: emailController.text,
+                          phone: phoneController.text,
+                          address: Address(
+                            street: streetController.text,
+                            suite: suiteController.text,
+                            city: cityController.text,
+                            zipcode: zipCodeController.text,
+                          ),
+                          companyName: compNameController.text,
+                        );
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Processing Data')),
                     );

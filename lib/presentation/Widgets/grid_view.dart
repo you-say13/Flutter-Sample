@@ -49,10 +49,10 @@ class InsertGridView extends StatelessWidget {
       "username": "ニックネーム",
       "email": "Eメール",
       "phone": "電話番号",
-      "zipCode": "住所",
-      "city": "町名",
-      "suite": "街区符号",
-      "street": "住居番号",
+      "zipCode": "郵便番号",
+      "city": "都道府県",
+      "suite": "県庁所在地",
+      "street": "市区町村",
       "companyName": "会社名",
     };
 
@@ -61,7 +61,7 @@ class InsertGridView extends StatelessWidget {
 
     return Column(
       children: [
-        for (int i = 0; i < info.length - 1; i++) ...{
+        for (int i = 0; i < info.length; i++) ...{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
