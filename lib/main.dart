@@ -2,9 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_sample/domain/model/user.dart';
 import 'package:riverpod_sample/firebase_options.dart';
 import 'package:riverpod_sample/l10n/l10n.dart';
-import 'package:riverpod_sample/presentation/insert_user_screen.dart';
+import 'package:riverpod_sample/presentation/apply_user_screen.dart';
 import 'package:riverpod_sample/presentation/user_list_screen.dart';
 
 Future<void> main() async {
@@ -42,7 +43,20 @@ class UserHomePage extends StatelessWidget {
               name: 'InsertPage',
               pageBuilder: (context, state) => MaterialPage(
                 key: state.pageKey,
-                child: const InsertUserScreen(),
+                child: const ApplyUserScreen(
+                  title: 'Register User',
+                ),
+              ),
+            ),
+            GoRoute(
+              path: 'edit',
+              name: 'EditPage',
+              pageBuilder: (context, state) => MaterialPage(
+                key: state.pageKey,
+                child: ApplyUserScreen(
+                  userParam: state.extra! as User?,
+                  title: 'Edit User',
+                ),
               ),
             ),
           ],

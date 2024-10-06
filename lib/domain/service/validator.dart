@@ -40,7 +40,7 @@ class Validator {
   final defaultMaxLength = 16;
   final defaultMaxEmailLength = 32;
 
-  final emailValidationPattern = '^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z0-9]+\$';
+  final emailValidationPattern = '^[A-Za-z0-9 -/:-@[-´{-~]+@[A-Za-z0-9]+.[A-Za-z0-9]+\$';
 
   ErrorCategory defaultValidator(String? value) {
     debugPrint("default validating");
