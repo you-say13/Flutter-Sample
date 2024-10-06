@@ -27,6 +27,28 @@ class CRUDController {
     }
   }
 
+  void update(User user) async {
+    try {
+      await users.doc(user.id).update(
+        {
+          "name": user.name,
+          "email": user.email,
+          "phone": user.phone,
+          "username": user.username,
+          "companyName": user.companyName,
+          "address": {
+            "city": user.address?.city,
+            "street": user.address?.street,
+            "suite": user.address?.suite,
+            "zipcode": user.address?.zipcode,
+          }
+        },
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   void delete(String id) async {
     try {
       debugPrint("delete user id: $id");

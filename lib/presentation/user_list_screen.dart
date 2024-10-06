@@ -39,37 +39,50 @@ class UserHomeScreenState extends ConsumerState<UserHomeScreen> {
               contentPadding: const EdgeInsets.symmetric(horizontal: 12),
               title: Text(userInfo.name),
               subtitle: Text(userInfo.email),
-              trailing: IconButton(
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
-                onPressed: () async {
-                  AlertDialogComp()
-                      .alertDialog(
-                    title: "ユーザー情報を削除します",
-                    message: "この操作は取り消すことができません。本当にこのデータを削除しますか？",
-                    context: context,
-                  )
-                      .then(
-                    (value) async {
-                      if (value != null && value) {
-                        CRUDController().delete(userInfo.id!);
-                        ref.invalidate(userRepositoryProvider);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("success delete user"),
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("failed delete user"),
-                          ),
-                        );
-                      }
-                    },
-                  );
+              trailing: PopupMenuButton(
+                itemBuilder: (context) {
+                  return [
+                    const PopupMenuItem(
+                      value: "DELETE",
+                      child: Text("DELETE"),
+                    ),
+                    const PopupMenuItem(
+                      value: "UPDATE",
+                      child: Text("UPDATE"),
+                    ),
+                  ];
                 },
-                icon: const Icon(Icons.delete_rounded),
+                onSelected: (value) {
+                  if (value == "DELETE") {
+                    AlertDialogComp()
+                        .alertDialog(
+                      title: "ユーザー情報を削除します",
+                      message: "この操作は取り消すことができません。本当にこのデータを削除しますか？",
+                      context: context,
+                    )
+                        .then(
+                      (value) async {
+                        if (value) {
+                          CRUDController().delete(userInfo.id!);
+                          ref.invalidate(userRepositoryProvider);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("success delete user"),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("cancel delete user"),
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  } else if (value == "UPDATE") {
+                    context.go("/edit", extra: userInfo);
+                  }
+                },
               ),
               onTap: () {
                 _isShowDescription(userInfo.id!);

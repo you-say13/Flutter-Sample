@@ -5,7 +5,7 @@ import 'package:riverpod_sample/domain/model/user.dart';
 import 'package:riverpod_sample/domain/repository/CRUDController.dart';
 import 'package:riverpod_sample/domain/service/user_repository.dart';
 
-part 'insert_user_view_model.g.dart';
+part 'apply_user_view_model.g.dart';
 
 final CollectionReference users = FirebaseFirestore.instance.collection("Users");
 
@@ -35,7 +35,7 @@ class ErrorUser {
 }
 
 @riverpod
-class InsertUserViewModel extends _$InsertUserViewModel {
+class ApplyUserViewModel extends _$ApplyUserViewModel {
   @override
   void build() {
     return;
@@ -82,6 +82,54 @@ class InsertUserViewModel extends _$InsertUserViewModel {
 
     // insert fireStore
     CRUDController().insert(user);
+
+    // reload homeView(userRepository data's)
+    ref.invalidate(userRepositoryProvider);
+  }
+
+  void updateUserData({
+    String? id,
+    required String name,
+    String? username,
+    required String email,
+    Address? address,
+    required String phone,
+    String? website,
+    String? companyName,
+  }) async {
+    // empty return block
+    if (name.isEmpty) {
+      return;
+    }
+    if (email.isEmpty) {
+      return;
+    }
+    if (phone.isEmpty) {
+      return;
+    }
+
+    debugPrint("update!");
+
+    // set user Type
+    final user = User.fromJson(
+      {
+        "id": id,
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "username": username ?? "",
+        "companyName": companyName ?? "",
+        "address": {
+          "city": address?.city ?? "",
+          "street": address?.street ?? "",
+          "suite": address?.suite ?? "",
+          "zipcode": address?.zipcode ?? "",
+        },
+      },
+    );
+
+    // insert fireStore
+    CRUDController().update(user);
 
     // reload homeView(userRepository data's)
     ref.invalidate(userRepositoryProvider);
