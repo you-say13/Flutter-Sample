@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'user.freezed.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
@@ -20,64 +23,47 @@ class Address {
   Map<String, dynamic> toJson() => _$AddressToJson(this);
 }
 
-@immutable
-@JsonSerializable()
-class User {
-  final String? id;
-  final String name;
-  final String? username;
-  final String age;
-  final String email;
-  final Address address;
-  final String phone;
-  final String? companyName;
-  final DateTime birthDay;
-  final DateTime createdAt;
-  final DateTime? updatedAt;
+DateTime? fromNullableTimestamp(Timestamp? timestamp) {
+  debugPrint("fromTimestamp");
+  DateTime? dateTime = timestamp?.toDate();
+  return dateTime;
+}
 
-  const User({
-    this.id,
-    required this.name,
-    this.username,
-    required this.age,
-    required this.email,
-    required this.address,
-    required this.phone,
-    this.companyName,
-    required this.birthDay,
-    required this.createdAt,
-    this.updatedAt,
-  });
+Timestamp? toNullableTimestamp(DateTime? createdAt) {
+  debugPrint("toTimestamp");
+  Timestamp? timestamp = createdAt == null ? null : Timestamp.fromDate(createdAt);
+  return timestamp;
+}
+
+DateTime fromTimestamp(Timestamp timestamp) {
+  debugPrint("fromTimestamp");
+  DateTime? dateTime = timestamp.toDate();
+  return dateTime;
+}
+
+Timestamp toTimestamp(DateTime createdAt) {
+  debugPrint("toTimestamp");
+  Timestamp? timestamp = Timestamp.fromDate(createdAt);
+  return timestamp;
+}
+
+@freezed
+class User with _$User {
+  const factory User({
+    String? id,
+    required String name,
+    String? username,
+    required String age,
+    required String email,
+    required Address address,
+    required String phone,
+    String? companyName,
+    @JsonKey(fromJson: fromTimestamp, toJson: toTimestamp) required DateTime birthDay,
+    @JsonKey(fromJson: fromTimestamp, toJson: toTimestamp) required DateTime createdAt,
+    @JsonKey(fromJson: fromNullableTimestamp, toJson: toNullableTimestamp) DateTime? updatedAt,
+  }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-  Map<String, dynamic> toJson() => _$UserToJson(this);
-
-  User copyWith({
-    String? id,
-    String? name,
-    String? username,
-    String? age,
-    String? email,
-    Address? address,
-    String? phone,
-    String? companyName,
-    DateTime? birthDay,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) =>
-      User(
-        id: id,
-        name: name ?? this.name,
-        username: username,
-        age: age ?? this.age,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        phone: phone ?? this.phone,
-        companyName: companyName,
-        birthDay: birthDay ?? this.birthDay,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt,
-      );
 
   @override
   String toString() {

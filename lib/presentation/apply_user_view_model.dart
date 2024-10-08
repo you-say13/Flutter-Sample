@@ -44,11 +44,13 @@ class ApplyUserViewModel extends _$ApplyUserViewModel {
   void insertUserData({
     required String name,
     String? username,
+    required String age,
     required String email,
     Address? address,
     required String phone,
     String? website,
     String? companyName,
+    DateTime? birthDay,
   }) async {
     // empty return block
     if (name.isEmpty) {
@@ -70,6 +72,7 @@ class ApplyUserViewModel extends _$ApplyUserViewModel {
         "email": email,
         "phone": phone,
         "username": username ?? "",
+        "age": age,
         "companyName": companyName ?? "",
         "address": {
           "city": address?.city ?? "",
@@ -77,6 +80,7 @@ class ApplyUserViewModel extends _$ApplyUserViewModel {
           "suite": address?.suite ?? "",
           "zipcode": address?.zipcode ?? "",
         },
+        "birthDay": birthDay,
       },
     );
 

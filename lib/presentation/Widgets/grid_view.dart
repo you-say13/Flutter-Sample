@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
 import 'package:riverpod_sample/domain/service/validator.dart';
 
@@ -11,11 +12,13 @@ class DetailGridView extends StatelessWidget {
     Map<String, String> info = {
       "username": userInfo.username ?? "",
       "phone": userInfo.phone,
+      "age": userInfo.age,
       "zipCode": userInfo.address.zipcode,
       "city": userInfo.address.city,
       "suite": userInfo.address.suite,
       "street": userInfo.address.street,
-      "companyName": userInfo.companyName ?? ""
+      "companyName": userInfo.companyName ?? "",
+      "birthDay": DateFormat("yyyy-MM-dd").format(userInfo.birthDay),
     };
 
     List<String> key = info.entries.map((user) => user.key).toList();
@@ -27,7 +30,7 @@ class DetailGridView extends StatelessWidget {
           textList: key,
         ),
         const Spacer(),
-        const SemicolonList(length: 7),
+        const SemicolonList(length: 9),
         const Spacer(),
         ColumnText(
           textList: [...info.entries.map((user) => user.value)],
@@ -44,24 +47,14 @@ class InsertGridView extends StatelessWidget {
 
   @override
   Widget build(context) {
-    Map<String, String> info = {
-      "name": "氏名",
-      "username": "ニックネーム",
-      "email": "Eメール",
-      "phone": "電話番号",
-      "zipCode": "郵便番号",
-      "city": "都道府県",
-      "suite": "県庁所在地",
-      "street": "市区町村",
-      "companyName": "会社名",
-    };
+    final info = userGenerator();
 
     List<String> key = info.entries.map((user) => user.key).toList();
     List<String> hintValue = info.entries.map((user) => user.value).toList();
 
     return Column(
       children: [
-        for (int i = 0; i < info.length; i++) ...{
+        for (int i = 0; i < info.length - 2; i++) ...{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
@@ -88,11 +81,20 @@ class InsertGridView extends StatelessWidget {
                     debugPrint('validation result: $str');
                     return str;
                   },
+                  onTap: () {
+                    if (key[i] != "birthDay") return;
+                    DatePickerDialog(
+                      firstDate: DateTime.now().add(
+                        const Duration(days: -365),
+                      ),
+                      lastDate: DateTime.now(),
+                    );
+                  },
                 ),
               ],
             ),
           ),
-        }
+        },
       ],
     );
   }
