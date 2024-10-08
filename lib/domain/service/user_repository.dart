@@ -21,7 +21,8 @@ Future<List<User>> getUsers() async {
   debugPrint('get user length: ${qs.docs.length}');
   return qs.docs.map((doc) {
     final Map<String, dynamic> joinMap = {"id": doc.id, ...doc.data() as Map<String, dynamic>};
-    final User user = User.fromJson(joinMap);
+    debugPrint('get user jsonData: $joinMap');
+    User user = User.fromJson(joinMap);
     debugPrint("get user desc: $user");
     return user;
   }).toList();

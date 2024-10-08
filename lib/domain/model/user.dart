@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'user.freezed.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
@@ -9,81 +12,102 @@ class Address {
     required this.suite,
     required this.city,
     required this.zipcode,
-    this.geo,
   });
 
   final String street;
   final String suite;
   final String city;
   final String zipcode;
-  final Geo? geo;
 
   factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
   Map<String, dynamic> toJson() => _$AddressToJson(this);
 }
 
-@JsonSerializable()
-class Geo {
-  Geo({
-    required this.lat,
-    required this.lng,
-  });
-  final String lat;
-  final String lng;
-
-  factory Geo.fromJson(Map<String, dynamic> json) => _$GeoFromJson(json);
-  Map<String, dynamic> toJson() => _$GeoToJson(this);
+DateTime? fromNullableTimestamp(Timestamp? timestamp) {
+  debugPrint("fromTimestamp");
+  DateTime? dateTime = timestamp?.toDate();
+  return dateTime;
 }
 
-@immutable
-@JsonSerializable()
-class User {
-  final String? id;
-  final String name;
-  final String? username;
-  final String email;
-  final Address address;
-  final String phone;
-  final String? website;
-  final String? companyName;
+Timestamp? toNullableTimestamp(DateTime? createdAt) {
+  debugPrint("toTimestamp");
+  Timestamp? timestamp = createdAt == null ? null : Timestamp.fromDate(createdAt);
+  return timestamp;
+}
 
-  const User({
-    this.id,
-    required this.name,
-    this.username,
-    required this.email,
-    required this.address,
-    required this.phone,
-    this.website,
-    this.companyName,
-  });
+DateTime fromTimestamp(Timestamp timestamp) {
+  debugPrint("fromTimestamp");
+  DateTime? dateTime = timestamp.toDate();
+  return dateTime;
+}
+
+Timestamp toTimestamp(DateTime createdAt) {
+  debugPrint("toTimestamp");
+  Timestamp? timestamp = Timestamp.fromDate(createdAt);
+  return timestamp;
+}
+
+@freezed
+class User with _$User {
+  const factory User({
+    String? id,
+    required String name,
+    String? username,
+    required String age,
+    required String email,
+    required Address address,
+    required String phone,
+    String? companyName,
+    @JsonKey(fromJson: fromTimestamp, toJson: toTimestamp) required DateTime birthDay,
+    @JsonKey(fromJson: fromTimestamp, toJson: toTimestamp) required DateTime createdAt,
+    @JsonKey(fromJson: fromNullableTimestamp, toJson: toNullableTimestamp) DateTime? updatedAt,
+  }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-  Map<String, dynamic> toJson() => _$UserToJson(this);
-
-  User copyWith({
-    String? id,
-    String? name,
-    String? username,
-    String? email,
-    Address? address,
-    String? phone,
-    String? website,
-    String? companyName,
-  }) =>
-      User(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        username: username ?? this.username,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        phone: phone ?? this.phone,
-        companyName: companyName ?? this.companyName,
-      );
 
   @override
   String toString() {
     // TODO: implement toString
     return "id: $id, name: $name, username: $username, email: $email";
   }
+}
+
+Map<String, String> userGenerator({bool? isId}) {
+  Map<String, String> resList;
+  if (isId != null && isId) {
+    resList = {
+      "id": "識別子",
+      "name": "氏名",
+      "userName": "ニックネーム",
+      "age": "年齢",
+      "email": "Eメール",
+      "phone": "電話番号",
+      "zipCode": "郵便番号",
+      "city": "都道府県",
+      "suite": "県庁所在地",
+      "street": "市区町村",
+      "companyName": "会社名",
+      "birthDay": "生年月日",
+      "createdAt": "作成日",
+      "updatedAt": "更新日",
+    };
+  } else {
+    resList = {
+      "name": "氏名",
+      "userName": "ニックネーム",
+      "age": "年齢",
+      "email": "Eメール",
+      "phone": "電話番号",
+      "zipCode": "郵便番号",
+      "city": "都道府県",
+      "suite": "県庁所在地",
+      "street": "市区町村",
+      "companyName": "会社名",
+      "birthDay": "生年月日",
+      "createdAt": "作成日",
+      "updatedAt": "更新日",
+    };
+  }
+
+  return resList;
 }

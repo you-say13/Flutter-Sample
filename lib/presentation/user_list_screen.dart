@@ -91,6 +91,7 @@ class UserHomeScreenState extends ConsumerState<UserHomeScreen> {
             user.viewState
                 ? Column(
                     children: [
+                      const Divider(),
                       DetailGridView(userInfo: userInfo),
                       const Divider(),
                     ],

@@ -15,11 +15,14 @@ class CRUDController {
           "username": user.username,
           "companyName": user.companyName,
           "address": {
-            "city": user.address?.city,
-            "street": user.address?.street,
-            "suite": user.address?.suite,
-            "zipcode": user.address?.zipcode,
-          }
+            "city": user.address.city,
+            "street": user.address.street,
+            "suite": user.address.suite,
+            "zipcode": user.address.zipcode,
+          },
+          "birthDay": Timestamp.fromDate(user.birthDay),
+          "createdAt": Timestamp.fromDate(user.createdAt),
+          "updatedAt": user.updatedAt != null ? Timestamp.fromDate(user.updatedAt!) : null,
         },
       );
     } catch (e) {
@@ -37,11 +40,14 @@ class CRUDController {
           "username": user.username,
           "companyName": user.companyName,
           "address": {
-            "city": user.address?.city,
-            "street": user.address?.street,
-            "suite": user.address?.suite,
-            "zipcode": user.address?.zipcode,
-          }
+            "city": user.address.city,
+            "street": user.address.street,
+            "suite": user.address.suite,
+            "zipcode": user.address.zipcode,
+          },
+          "birthDay": user.birthDay,
+          "createdAt": user.createdAt,
+          "updatedAt": user.updatedAt,
         },
       );
     } catch (e) {

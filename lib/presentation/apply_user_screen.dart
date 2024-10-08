@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
 import 'package:riverpod_sample/presentation/Widgets/grid_view.dart';
 import 'package:riverpod_sample/presentation/apply_user_view_model.dart';
@@ -21,6 +22,7 @@ class ApplyUserScreenState extends ConsumerState<ApplyUserScreen> {
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController userNameController = TextEditingController();
+    TextEditingController ageController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController phoneController = TextEditingController();
     TextEditingController zipCodeController = TextEditingController();
@@ -28,10 +30,12 @@ class ApplyUserScreenState extends ConsumerState<ApplyUserScreen> {
     TextEditingController suiteController = TextEditingController();
     TextEditingController streetController = TextEditingController();
     TextEditingController compNameController = TextEditingController();
+    TextEditingController birthDayController = TextEditingController();
 
     List<TextEditingController> textControllerList = [
       nameController,
       userNameController,
+      ageController,
       emailController,
       phoneController,
       zipCodeController,
@@ -39,11 +43,13 @@ class ApplyUserScreenState extends ConsumerState<ApplyUserScreen> {
       suiteController,
       streetController,
       compNameController,
+      birthDayController
     ];
 
     void settingTextField({User? user}) {
       nameController.text = user?.name ?? "";
       userNameController.text = user?.username ?? "";
+      ageController.text = user?.age ?? "";
       emailController.text = user?.email ?? "";
       phoneController.text = user?.phone ?? "";
       zipCodeController.text = user?.address.zipcode ?? "";
@@ -51,6 +57,7 @@ class ApplyUserScreenState extends ConsumerState<ApplyUserScreen> {
       suiteController.text = user?.address.suite ?? "";
       streetController.text = user?.address.street ?? "";
       compNameController.text = user?.companyName ?? "";
+      birthDayController.text = user != null ? DateFormat('yyyy-MM-dd').format(user!.birthDay) : "";
     }
 
     settingTextField(user: widget.userParam);
@@ -87,6 +94,7 @@ class ApplyUserScreenState extends ConsumerState<ApplyUserScreen> {
                       ref.read(applyUserViewModelProvider.notifier).insertUserData(
                             name: nameController.text,
                             username: userNameController.text,
+                            age: ageController.text,
                             email: emailController.text,
                             phone: phoneController.text,
                             address: Address(
