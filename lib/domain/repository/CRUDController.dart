@@ -21,8 +21,8 @@ class CRUDController {
             "zipcode": user.address.zipcode,
           },
           "birthDay": Timestamp.fromDate(user.birthDay),
-          "createdAt": Timestamp.fromDate(user.createdAt),
-          "updatedAt": user.updatedAt != null ? Timestamp.fromDate(user.updatedAt!) : null,
+          "createdAt": Timestamp.fromDate(DateTime.now()),
+          "updatedAt": null,
         },
       );
     } catch (e) {

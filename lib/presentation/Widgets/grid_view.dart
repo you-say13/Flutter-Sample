@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide DateTimePicker;
+import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
 import 'package:riverpod_sample/domain/service/validator.dart';
@@ -54,7 +56,7 @@ class InsertGridView extends StatelessWidget {
 
     return Column(
       children: [
-        for (int i = 0; i < info.length - 2; i++) ...{
+        for (int i = 0; i < info.length; i++) ...{
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
@@ -82,13 +84,24 @@ class InsertGridView extends StatelessWidget {
                     return str;
                   },
                   onTap: () {
-                    if (key[i] != "birthDay") return;
-                    DatePickerDialog(
-                      firstDate: DateTime.now().add(
-                        const Duration(days: -365),
-                      ),
-                      lastDate: DateTime.now(),
-                    );
+                    if (key[i] == "birthDay") {
+                      DatePicker.showDatePicker(
+                        context,
+                        showTitleActions: true,
+                        minTime: DateTime(2022, 1, 1),
+                        maxTime: DateTime(2023, 12, 31),
+                        onChanged: (date) {
+                          print(date);
+                        },
+                        onConfirm: (date) {
+                          print(date);
+                        },
+                        currentTime: DateTime.now(),
+                        locale: LocaleType.jp,
+                      );
+                    } else {
+                      return;
+                    }
                   },
                 ),
               ],
