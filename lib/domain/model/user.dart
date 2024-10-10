@@ -24,13 +24,13 @@ class Address {
 }
 
 DateTime? fromNullableTimestamp(Timestamp? timestamp) {
-  debugPrint("fromTimestamp");
+  debugPrint("fromNullableTimestamp");
   DateTime? dateTime = timestamp?.toDate();
   return dateTime;
 }
 
 Timestamp? toNullableTimestamp(DateTime? createdAt) {
-  debugPrint("toTimestamp");
+  debugPrint("toNullableTimestamp");
   Timestamp? timestamp = createdAt == null ? null : Timestamp.fromDate(createdAt);
   return timestamp;
 }
@@ -93,19 +93,17 @@ Map<String, String> userGenerator({bool? isId}) {
     };
   } else {
     resList = {
-      "name": "氏名",
-      "userName": "ニックネーム",
-      "age": "年齢",
-      "email": "Eメール",
-      "phone": "電話番号",
-      "zipCode": "郵便番号",
-      "city": "都道府県",
-      "suite": "県庁所在地",
-      "street": "市区町村",
-      "companyName": "会社名",
-      "birthDay": "生年月日",
-      "createdAt": "作成日",
-      "updatedAt": "更新日",
+      "name": "山田　太郎",
+      "userName": "タロー",
+      "age": "XX",
+      "email": "XXX@XX.XX",
+      "phone": "XXX-XXXX-XXXX",
+      "zipCode": "XXX-XXXX",
+      "city": "XX県",
+      "suite": "XX市",
+      "street": "XX-X-X",
+      "companyName": "XX株式会社",
+      "birthDay": "XX年XX月XX日",
     };
   }
 

@@ -104,12 +104,14 @@ class ApplyUserScreenState extends ConsumerState<ApplyUserScreen> {
                               zipcode: zipCodeController.text,
                             ),
                             companyName: compNameController.text,
+                            birthDay: DateTime.parse(birthDayController.text),
                           );
                     } else {
                       ref.read(applyUserViewModelProvider.notifier).updateUserData(
                             id: widget.userParam!.id,
                             name: nameController.text,
                             username: userNameController.text,
+                            age: ageController.text,
                             email: emailController.text,
                             phone: phoneController.text,
                             address: Address(
@@ -119,6 +121,8 @@ class ApplyUserScreenState extends ConsumerState<ApplyUserScreen> {
                               zipcode: zipCodeController.text,
                             ),
                             companyName: compNameController.text,
+                            createdAt: widget.userParam!.createdAt,
+                            birthDay: DateTime.parse(birthDayController.text),
                           );
                     }
                     settingTextField();
