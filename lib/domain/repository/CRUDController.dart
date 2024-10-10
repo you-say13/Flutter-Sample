@@ -4,6 +4,8 @@ import 'package:riverpod_sample/domain/model/user.dart';
 
 final CollectionReference users = FirebaseFirestore.instance.collection("Users");
 
+enum ApplyType { insert, update }
+
 class CRUDController {
   void insert(User user) async {
     try {
@@ -12,6 +14,7 @@ class CRUDController {
           "name": user.name,
           "email": user.email,
           "phone": user.phone,
+          "age": user.age,
           "username": user.username,
           "companyName": user.companyName,
           "address": {
@@ -37,6 +40,7 @@ class CRUDController {
           "name": user.name,
           "email": user.email,
           "phone": user.phone,
+          "age": user.age,
           "username": user.username,
           "companyName": user.companyName,
           "address": {
@@ -45,9 +49,9 @@ class CRUDController {
             "suite": user.address.suite,
             "zipcode": user.address.zipcode,
           },
-          "birthDay": user.birthDay,
-          "createdAt": user.createdAt,
-          "updatedAt": user.updatedAt,
+          "birthDay": Timestamp.fromDate(user.birthDay),
+          "createdAt": Timestamp.fromDate(user.createdAt),
+          "updatedAt": Timestamp.fromDate(user.updatedAt!),
         },
       );
     } catch (e) {

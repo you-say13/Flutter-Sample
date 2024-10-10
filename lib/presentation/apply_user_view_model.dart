@@ -9,6 +9,20 @@ part 'apply_user_view_model.g.dart';
 
 final CollectionReference users = FirebaseFirestore.instance.collection("Users");
 
+enum InputFieldType {
+  name,
+  userName,
+  age,
+  email,
+  phone,
+  zipCode,
+  city,
+  suite,
+  street,
+  companyName,
+  birthDay,
+}
+
 class ErrorUser {
   ErrorUser(
       {this.nameError,
@@ -50,7 +64,7 @@ class ApplyUserViewModel extends _$ApplyUserViewModel {
     required String phone,
     String? website,
     String? companyName,
-    DateTime? birthDay,
+    required DateTime birthDay,
   }) async {
     // empty return block
     if (name.isEmpty) {
@@ -80,7 +94,8 @@ class ApplyUserViewModel extends _$ApplyUserViewModel {
           "suite": address?.suite ?? "",
           "zipcode": address?.zipcode ?? "",
         },
-        "birthDay": birthDay,
+        "birthDay": Timestamp.fromDate(birthDay!),
+        "createdAt": Timestamp.fromDate(DateTime.now()),
       },
     );
 
@@ -95,11 +110,14 @@ class ApplyUserViewModel extends _$ApplyUserViewModel {
     String? id,
     required String name,
     String? username,
+    required String age,
     required String email,
     Address? address,
     required String phone,
     String? website,
     String? companyName,
+    required DateTime createdAt,
+    required DateTime birthDay,
   }) async {
     // empty return block
     if (name.isEmpty) {
@@ -120,6 +138,7 @@ class ApplyUserViewModel extends _$ApplyUserViewModel {
         "id": id,
         "name": name,
         "email": email,
+        "age": age,
         "phone": phone,
         "username": username ?? "",
         "companyName": companyName ?? "",
@@ -129,6 +148,9 @@ class ApplyUserViewModel extends _$ApplyUserViewModel {
           "suite": address?.suite ?? "",
           "zipcode": address?.zipcode ?? "",
         },
+        "birthDay": Timestamp.fromDate(birthDay),
+        "createdAt": Timestamp.fromDate(createdAt),
+        "updatedAt": Timestamp.fromDate(DateTime.now())
       },
     );
 

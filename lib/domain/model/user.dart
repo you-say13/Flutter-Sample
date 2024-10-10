@@ -24,13 +24,13 @@ class Address {
 }
 
 DateTime? fromNullableTimestamp(Timestamp? timestamp) {
-  debugPrint("fromTimestamp");
+  debugPrint("fromNullableTimestamp");
   DateTime? dateTime = timestamp?.toDate();
   return dateTime;
 }
 
 Timestamp? toNullableTimestamp(DateTime? createdAt) {
-  debugPrint("toTimestamp");
+  debugPrint("toNullableTimestamp");
   Timestamp? timestamp = createdAt == null ? null : Timestamp.fromDate(createdAt);
   return timestamp;
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide DateTimePicker;
-import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
@@ -70,6 +69,7 @@ class InsertGridView extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: textControllerList[i],
+                  focusNode: key[i] == "birthDay" ? AlwaysDisabledFocusNode() : null,
                   decoration: InputDecoration(
                     //下記2行追加
                     isDense: true,
@@ -88,16 +88,26 @@ class InsertGridView extends StatelessWidget {
                       DatePicker.showDatePicker(
                         context,
                         showTitleActions: true,
-                        minTime: DateTime(2022, 1, 1),
-                        maxTime: DateTime(2023, 12, 31),
+                        minTime: DateTime.now().add(
+                          const Duration(days: -36500),
+                        ),
+                        maxTime: DateTime.now(),
                         onChanged: (date) {
                           print(date);
                         },
                         onConfirm: (date) {
                           print(date);
                         },
-                        currentTime: DateTime.now(),
+                        currentTime: textControllerList[i].text != ""
+                            ? DateTime.parse(textControllerList[i].text)
+                            : DateTime.now(),
                         locale: LocaleType.jp,
+                      ).then(
+                        (value) {
+                          if (value != null) {
+                            textControllerList[i].text = DateFormat('yyyy-MM-dd').format(value);
+                          }
+                        },
                       );
                     } else {
                       return;
@@ -111,6 +121,38 @@ class InsertGridView extends StatelessWidget {
       ],
     );
   }
+}
+
+// class TextArea extends StatelessWidget{
+//   TextArea({super.key, required this.focusNode, required this.controller, required this.keyValue, required this.validator,});
+//
+//   final FocusNode focusNode;
+//   final TextEditingController controller;
+//   final String keyValue;
+//   String? Function(String) validator;
+//
+//   @override
+//   Widget build(context){
+//
+//     bool datePickFlag = false;
+//     TextInputType keyboardType;
+//
+//     if(keyValue == "birthDay"){
+//       datePickFlag = true;
+//     }
+//
+//     return TextFormField(
+//       controller: controller,
+//       focusNode: datePickFlag ? focusNode : null,
+//       keyboardType: ,
+//     );
+//   }
+//
+// }
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
 
 class SemicolonList extends StatelessWidget {
