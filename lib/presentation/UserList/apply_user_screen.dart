@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
+import 'package:riverpod_sample/presentation/UserList/apply_user_view_model.dart';
 import 'package:riverpod_sample/presentation/Widgets/grid_view.dart';
-import 'package:riverpod_sample/presentation/apply_user_view_model.dart';
 
 class ApplyUserScreen extends ConsumerStatefulWidget {
   final User? userParam;
