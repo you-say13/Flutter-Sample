@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_sample/domain/repository/CRUDController.dart';
 import 'package:riverpod_sample/domain/service/user_repository.dart';
+import 'package:riverpod_sample/presentation/UserList/user_list_view_model.dart';
 import 'package:riverpod_sample/presentation/Widgets/alert_dialog.dart';
 import 'package:riverpod_sample/presentation/Widgets/grid_view.dart';
-import 'package:riverpod_sample/presentation/user_list_view_model.dart';
 
 class UserHomeScreen extends ConsumerStatefulWidget {
   const UserHomeScreen({super.key});
@@ -119,7 +119,7 @@ class UserHomeScreenState extends ConsumerState<UserHomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              context.push('/insert');
+              context.go('/insert');
             },
             icon: const Icon(
               Icons.add,
