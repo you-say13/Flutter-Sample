@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_sample/domain/repository/CRUDController.dart';
-import 'package:riverpod_sample/domain/service/user_repository.dart';
+import 'package:riverpod_sample/domain/repository/user_repository.dart';
+import 'package:riverpod_sample/domain/service/CRUDController.dart';
 import 'package:riverpod_sample/presentation/UserList/user_list_view_model.dart';
 import 'package:riverpod_sample/presentation/Widgets/alert_dialog.dart';
 import 'package:riverpod_sample/presentation/Widgets/grid_view.dart';
