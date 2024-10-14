@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_sample/domain/model/user.dart';
-import 'package:riverpod_sample/domain/repository/CRUDController.dart';
-import 'package:riverpod_sample/domain/service/user_repository.dart';
+import 'package:riverpod_sample/domain/repository/user_repository.dart';
+import 'package:riverpod_sample/domain/service/CRUDController.dart';
 
 part 'apply_user_view_model.g.dart';
 
